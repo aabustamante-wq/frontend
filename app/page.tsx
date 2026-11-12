@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { CONFIG } from "@/lib/config";
-import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   return (
@@ -19,7 +18,8 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4338ca] text-white shadow-sm">
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-4.14 0-7.5 2.02-7.5 4.5V20h15v-1.25c0-2.48-3.36-4.5-7.5-4.5Z" />
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
               </svg>
             </div>
             <span className="text-base font-bold tracking-tight text-white">
@@ -34,12 +34,12 @@ export default function HomePage() {
             >
               Sign In
             </Link>
-            <Button
-              asChild
-              className="h-9 rounded-full bg-[#4338ca] px-5 text-xs font-semibold text-white shadow-sm hover:bg-[#3730a3]"
+            <Link
+              href={CONFIG.ROUTES.REGISTER}
+              className="inline-flex h-9 items-center justify-center rounded-full bg-[#4338ca] px-5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#3730a3]"
             >
-              <Link href={CONFIG.ROUTES.REGISTER}>Get Started</Link>
-            </Button>
+              Get Started
+            </Link>
           </div>
         </div>
       </header>
@@ -63,20 +63,19 @@ export default function HomePage() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              className="h-11 flex-1 rounded-full bg-[#4338ca] text-sm font-semibold text-white shadow-md hover:bg-[#3730a3]"
+            <Link
+              href={CONFIG.ROUTES.LOGIN}
+              className="inline-flex h-11 flex-1 items-center justify-center rounded-full bg-[#4338ca] px-6 text-sm font-semibold text-white shadow-md transition hover:bg-[#3730a3]"
             >
-              <Link href={CONFIG.ROUTES.LOGIN}>Login to Portal</Link>
-            </Button>
+              Login to Portal
+            </Link>
 
-            <Button
-              asChild
-              variant="outline"
-              className="h-11 flex-1 rounded-full border-stone-300 text-sm font-semibold text-stone-700 hover:bg-stone-50"
+            <Link
+              href={CONFIG.ROUTES.REGISTER}
+              className="inline-flex h-11 flex-1 items-center justify-center rounded-full border border-stone-300 bg-white px-6 text-sm font-semibold text-stone-700 transition hover:bg-stone-50"
             >
-              <Link href={CONFIG.ROUTES.REGISTER}>Create Account</Link>
-            </Button>
+              Create Account
+            </Link>
           </div>
 
           <div className="mt-8 grid grid-cols-3 gap-4 border-t border-stone-200 pt-6 text-center">
