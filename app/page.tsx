@@ -1,69 +1,116 @@
-import Image from "next/image";
+import Link from "next/link";
+import { CONFIG } from "@/lib/config";
+import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-[#1c1714] text-stone-900">
+      {/* Subtle Ambient Restaurant Backdrop */}
+      <img
+        src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20 blur-[2px]"
+      />
+
+      {/* Top Navigation */}
+      <header className="relative z-10 border-b border-white/10 bg-[#15110f]/90 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#4338ca] text-white shadow-sm">
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-4.14 0-7.5 2.02-7.5 4.5V20h15v-1.25c0-2.48-3.36-4.5-7.5-4.5Z" />
+              </svg>
+            </div>
+            <span className="text-base font-bold tracking-tight text-white">
+              Table &amp; Hearth
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Link
+              href={CONFIG.ROUTES.LOGIN}
+              className="px-3 py-1.5 text-xs font-semibold text-stone-200 transition hover:text-white"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Sign In
+            </Link>
+            <Button
+              asChild
+              className="h-9 rounded-full bg-[#4338ca] px-5 text-xs font-semibold text-white shadow-sm hover:bg-[#3730a3]"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <Link href={CONFIG.ROUTES.REGISTER}>Get Started</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+      </header>
+
+      {/* Hero Section */}
+      <main className="relative z-10 mx-auto grid w-full max-w-5xl items-center gap-10 px-6 py-12 lg:grid-cols-2">
+        {/* Left: White Welcome Card */}
+        <div className="bg-white p-8 shadow-2xl sm:p-12">
+          <span className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-[#4338ca]">
+            Restaurant &amp; Lounge Portal
+          </span>
+
+          <h1 className="mt-4 text-3xl font-bold tracking-tight text-[#4338ca] sm:text-4xl">
+            Fine Dining Operations, Simplified.
+          </h1>
+
+          <p className="mt-4 text-sm leading-relaxed text-stone-600">
+            Manage evening reservations, monitor live table occupancy, and keep
+            your dining room service running seamlessly from one unified
+            dashboard.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              className="h-11 flex-1 rounded-full bg-[#4338ca] text-sm font-semibold text-white shadow-md hover:bg-[#3730a3]"
+            >
+              <Link href={CONFIG.ROUTES.LOGIN}>Login to Portal</Link>
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              className="h-11 flex-1 rounded-full border-stone-300 text-sm font-semibold text-stone-700 hover:bg-stone-50"
+            >
+              <Link href={CONFIG.ROUTES.REGISTER}>Create Account</Link>
+            </Button>
+          </div>
+
+          <div className="mt-8 grid grid-cols-3 gap-4 border-t border-stone-200 pt-6 text-center">
+            <div>
+              <p className="text-base font-bold text-[#4338ca]">Live Floor</p>
+              <p className="text-xs text-stone-500">Table Tracking</p>
+            </div>
+            <div>
+              <p className="text-base font-bold text-stone-900">Instant</p>
+              <p className="text-xs text-stone-500">Guest Seating</p>
+            </div>
+            <div>
+              <p className="text-base font-bold text-stone-900">Secure</p>
+              <p className="text-xs text-stone-500">JWT Access</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Framed Fine-Dining Photo */}
+        <div className="hidden lg:block">
+          <div className="overflow-hidden rounded-2xl border-2 border-white/85 shadow-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1000&q=85"
+              alt="Cocktails and small plates on a restaurant table"
+              className="aspect-[4/4.3] w-full object-cover"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-white/10 py-4 text-center text-xs text-stone-400">
+        Table &amp; Hearth Hospitality Management
+      </footer>
     </div>
   );
 }
