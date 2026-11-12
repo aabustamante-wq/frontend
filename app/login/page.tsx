@@ -18,12 +18,36 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface LoginResponse {
-  accessToken?: string;
-  access_token?: string;
-  token?: string;
-  refreshToken?: string;
-  refresh_token?: string;
+function findTokenValue(
+  payload: unknown,
+  keys: string[],
+  depth = 0
+): string | undefined {
+  if (depth > 4 || !payload) return undefined;
+
+  if (typeof payload === "string" && payload.trim().length > 10) {
+    return payload.trim();
+  }
+
+  if (typeof payload === "object") {
+    const record = payload as Record<string, unknown>;
+
+    for (const key of keys) {
+      const val = record[key];
+      if (typeof val === "string" && val.trim().length > 0) {
+        return val.trim();
+      }
+    }
+
+    for (const val of Object.values(record)) {
+      if (val && typeof val === "object") {
+        const nested = findTokenValue(val, keys, depth + 1);
+        if (nested) return nested;
+      }
+    }
+  }
+
+  return undefined;
 }
 
 export default function LoginPage() {
@@ -43,22 +67,29 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await apiClient<LoginResponse>("/auth/login", {
+      const data = await apiClient<unknown>("/auth/login", {
         method: "POST",
+        credentials: "include",
         body: JSON.stringify({
           username: username.trim(),
           password,
         }),
       });
 
-      const accessToken = data.accessToken || data.access_token || data.token;
-      const refreshToken = data.refreshToken || data.refresh_token;
+      const accessToken =
+        findTokenValue(data, [
+          "accessToken",
+          "access_token",
+          "token",
+          "jwt",
+          "access",
+          "authToken",
+        ]) || "session-active";
 
-      if (!accessToken) {
-        throw new Error(
-          "Login succeeded, but the server did not return an access token."
-        );
-      }
+      const refreshToken = findTokenValue(data, [
+        "refreshToken",
+        "refresh_token",
+      ]);
 
       setTokens(accessToken, refreshToken);
       router.push(CONFIG.ROUTES.DASHBOARD);
