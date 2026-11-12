@@ -22,19 +22,29 @@ export async function apiClient<T>(
     }
   }
 
-  const response = await fetch(`${CONFIG.API_BASE_URL}${endpoint}`, {
-    headers: {
-      ...defaultHeaders,
-      ...headers,
-    },
-    ...restOptions,
-  });
+  const url = `${CONFIG.API_BASE_URL}${endpoint}`;
 
-  const data = await response.json();
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      headers: {
+        ...defaultHeaders,
+        ...headers,
+      },
+      ...restOptions,
+    });
+  } catch {
+    throw new Error(
+      `Cannot reach ${url}. Verify your NestJS server is live with CORS enabled and NEXT_PUBLIC_API_URL is set in Vercel.`
+    );
+  }
+
+  const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const errorMessage =
-      Array.isArray(data.message) ? data.message.join(", ") : data.message || "An unexpected error occurred.";
+    const errorMessage = Array.isArray(data.message)
+      ? data.message.join(", ")
+      : data.message || "An unexpected error occurred.";
     throw new Error(errorMessage);
   }
 
