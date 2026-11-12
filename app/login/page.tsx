@@ -84,10 +84,10 @@ export default function LoginPage() {
         {/* Right: White Login Card */}
         <Card className="mx-auto w-full max-w-md rounded-none border-0 bg-white px-4 py-6 text-stone-900 shadow-2xl sm:px-8 sm:py-8">
           <CardHeader className="items-center text-center">
-            {/* Avatar Badge */}
             <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-[#4338ca] text-white shadow-sm">
               <svg className="h-11 w-11" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-4.14 0-7.5 2.02-7.5 4.5V20h15v-1.25c0-2.48-3.36-4.5-7.5-4.5Z" />
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
               </svg>
             </div>
             <CardTitle className="text-2xl font-bold tracking-tight text-[#4338ca]">
@@ -117,7 +117,8 @@ export default function LoginPage() {
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
-                    <path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2.25c-4.14 0-7.5 2.02-7.5 4.5V20h15v-1.25c0-2.48-3.36-4.5-7.5-4.5Z" />
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
                   </svg>
                   <Input
                     id="username"
@@ -140,6 +141,78 @@ export default function LoginPage() {
                   <svg
                     className="h-4 w-4 shrink-0 text-stone-300"
                     viewBox="0 0 24 24"
-                    fill="currentColor"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
                   >
-                    <path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2
+                    <rect x="4" y="11" width="16" height="10" rx="2" />
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                  </svg>
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="h-8 border-0 bg-transparent px-3 text-sm text-stone-800 shadow-none placeholder:text-stone-400 focus-visible:ring-0"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="text-stone-400 hover:text-stone-600"
+                  >
+                    {showPassword ? (
+                      <svg
+                        className="h-4 w-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    ) : (
+                      <svg
+                        className="h-4 w-4"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M3 3l18 18" />
+                        <path d="M10.5 6.2A10 10 0 0 1 22 12s-4 7-10 7a10 10 0 0 1-5.5-1.7" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </CardContent>
+
+            <CardFooter className="flex flex-col gap-5 pt-4">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="h-11 w-full rounded-full bg-[#4338ca] text-sm font-semibold text-white shadow-md hover:bg-[#3730a3]"
+              >
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+
+              <p className="text-center text-xs text-stone-500">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href={CONFIG.ROUTES.REGISTER}
+                  className="font-semibold text-[#4338ca] hover:underline"
+                >
+                  Register
+                </Link>
+              </p>
+            </CardFooter>
+          </form>
+        </Card>
+      </div>
+    </div>
+  );
+}
